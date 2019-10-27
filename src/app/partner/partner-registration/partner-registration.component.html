@@ -1,0 +1,78 @@
+<div class="container p-0">
+  <div class="container">
+    <div class="row">
+      <h1 class="text-center col-12">Регистрация партнера</h1>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="registration-last-name">Фамилия</label>
+          <input type="text" class="form-control" id="registration-last-name"
+                 [(ngModel)]="lastName.value" (input)="lastName.checker()"
+                 [ngClass]="lastName.isValid == null ? '' : lastName.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: lastName.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="lastName.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{lastName.isValid ? 'Корректная фамилия' : 'Фамилия не может быть пустой'}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="registration-first-name">Имя</label>
+          <input type="text" class="form-control" id="registration-first-name"
+                 [(ngModel)]="firstName.value" (input)="firstName.checker()"
+                 [ngClass]="firstName.isValid == null ? '' : firstName.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: firstName.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="firstName.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{firstName.isValid ? 'Корректное имя' : 'Имя не может быть пустым'}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="registration-middle-name">Отчество</label>
+          <input type="text" class="form-control" id="registration-middle-name"
+                 [(ngModel)]="middleName.value" (input)="middleName.checker()"
+                 [ngClass]="middleName.isValid == null ? '' : middleName.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: middleName.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="middleName.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{middleName.isValid ? 'Корректное отчество' : 'Отчество не может быть пустым'}}
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="registration-email-name">email</label>
+          <input type="text" class="form-control" id="registration-email-name"
+                 [(ngModel)]="email.value" (input)="email.checker()"
+                 [ngClass]="email.isValid == null ? '' : email.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: email.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="email.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{email.isValid ? 'Корректный email' : 'Некорректный формат email'}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="registration-password-name">Пароль</label>
+          <input type="password" class="form-control" id="registration-password-name"
+                 [(ngModel)]="password.value" (input)="password.checker()"
+                 [ngClass]="password.isValid == null ? '' : password.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: password.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="password.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{password.isValid ? 'Корректный пароль' : 'Пароль должен быть от 8 до 64 символов без пробелов'}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="registration-repeat-password-name">Подтверждение пароля</label>
+          <input type="password" class="form-control" id="registration-repeat-password-name"
+                 [(ngModel)]="repeatPassword.value" (input)="repeatPassword.checker()"
+                 [ngClass]="repeatPassword.isValid == null ? '' : repeatPassword.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: repeatPassword.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="repeatPassword.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{repeatPassword.isValid ? 'Пароли совпадают' : 'Пароли не совпадают'}}
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100"></div>
+
+      <div class="col-auto mx-auto mt-5">
+        <button (click)="registration()" class="btn btn-primary d-inline-block mr-3">Зарегистрироваться</button>
+        <a routerLink="/partner/login" class="btn btn-outline-primary d-inline-block">Вход</a>
+      </div>
+    </div>
+  </div>
+</div>

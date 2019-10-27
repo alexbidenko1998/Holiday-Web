@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <h1 class="text-center">Ваши акции</h1>
+
+  <a routerLink="../redact-action" (click)="createAction()">Создать новую +</a>
+
+  <div class="row" *ngFor="let action of actions; let i = index" routerLink="../redact-action" (click)="updateAction(i)">
+    <div class="col-12 border text-center" [class.border-danger]="action.actionBefore < currentDate">
+      {{action.title}}
+    </div>
+  </div>
+
+  <p class="text-center" *ngIf="!actions || actions.length == 0">У вас еще нет акций</p>
+
+  <hr />
+
+  <h1 class="text-center">Акции от партнеров</h1>
+
+  <div class="row">
+    <div class="col-6">
+      Партнер
+    </div>
+    <div class="col-6">
+      Акция
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let actionData of allActionsData; let i = index" routerLink="../redact-action"
+       (click)="updatePartnerAction(i)" [class.border-danger]="actionData.action.actionBefore < currentDate">
+    <div class="col-6 border">
+      {{actionData.partner.lastName}} {{actionData.partner.firstName}} {{actionData.partner.middleName}}
+    </div>
+    <div class="col-6 border text-center">
+      {{actionData.action.title}}
+    </div>
+  </div>
+
+  <p class="text-center" *ngIf="!allActionsData || allActionsData.length == 0">Нет акций от партнеров</p>
+</div>

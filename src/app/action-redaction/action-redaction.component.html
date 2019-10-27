@@ -1,0 +1,154 @@
+<div class="container-fluid pb-3">
+  <h1 class="text-center">Скидка в день рождения</h1>
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <label for="action-title" class="w-100">Заголовок<span style="float: right;">80 символов</span></label>
+        <textarea class="form-control" id="action-title" rows="3" [(ngModel)]="action.title" (input)="checkerTitle()"
+                  [ngClass]="isValidTitle == null ? '' : isValidTitle ? 'is-valid' : 'is-invalid'"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="action-profit">Выгода</label>
+        <div class="input-group mb-2">
+          <input type="number" class="form-control" id="action-profit" [(ngModel)]="action.profit" (input)="checkerProfit()"
+                 [ngClass]="isValidProfit == null ? '' : isValidProfit ? 'is-valid' : 'is-invalid'">
+          <div class="input-group-prepend">
+            <div class="input-group-text">%</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="action-old-cost">Старая цена</label>
+        <div class="input-group mb-2">
+          <input type="number" class="form-control" id="action-old-cost" [(ngModel)]="action.oldCost">
+          <div class="input-group-prepend">
+            <div class="input-group-text">р</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="action-new-cost">Новая цена</label>
+        <div class="input-group mb-2">
+          <input type="number" class="form-control" id="action-new-cost" [(ngModel)]="action.newCost" (input)="checkerNewCost()"
+                 [ngClass]="isValidNewCost == null ? '' : isValidNewCost ? 'is-valid' : 'is-invalid'">
+          <div class="input-group-prepend">
+            <div class="input-group-text">р</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="action-address">Адрес</label>
+        <input type="text" class="form-control" id="action-address" [(ngModel)]="action.address" (change)="checkerAddress()"
+               [ngClass]="isValidAddress == null ? '' : isValidAddress ? 'is-valid' : 'is-invalid'">
+      </div>
+      <div class="form-group">
+        <label for="action-phone">Телефон</label>
+        <input type="text" class="form-control" id="action-phone" [(ngModel)]="action.phone" (input)="checkerPhone()"
+               [ngClass]="isValidPhone == null ? '' : isValidPhone ? 'is-valid' : 'is-invalid'">
+      </div>
+      <div class="form-group">
+        <label for="action-site">Сайт</label>
+        <input type="text" class="form-control" id="action-site" [(ngModel)]="action.site" (change)="checkerSite()"
+               [ngClass]="isValidSite == null ? '' : isValidSite ? 'is-valid' : 'is-invalid'">
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="border rounded p-4">
+        <p class="lead m-0">Время работы</p>
+        <p class="mb-0 mt-3">По будням</p>
+        <span>С
+          <input type="time" class="d-inline-block form-control p-0" style="width: 80px;"
+                 [(ngModel)]="action.workTime.weekdays.start"
+                 (input)="isValidWorkTime.weekdays.start = action.workTime.weekdays.start !== ''"
+                 [ngClass]="isValidWorkTime.weekdays.start == null ? '' : isValidWorkTime.weekdays.start ? 'is-valid' : 'is-invalid'"> До
+          <input type="time" class="d-inline-block form-control p-0" style="width: 80px;"
+                 [(ngModel)]="action.workTime.weekdays.end"
+                 (input)="isValidWorkTime.weekdays.end = action.workTime.weekdays.end !== ''"
+                 [ngClass]="isValidWorkTime.weekdays.end == null ? '' : isValidWorkTime.weekdays.end ? 'is-valid' : 'is-invalid'"></span>
+        <p class="mb-0 mt-3">Суббота</p>
+        <span>С
+          <input type="time" class="d-inline-block form-control p-0" style="width: 80px;"
+                 [(ngModel)]="action.workTime.saturday.start"
+                 (input)="isValidWorkTime.saturday.start = action.workTime.saturday.start !== ''"
+                 [ngClass]="isValidWorkTime.saturday.start == null ? '' : isValidWorkTime.saturday.start ? 'is-valid' : 'is-invalid'"> До
+          <input type="time" class="d-inline-block form-control p-0" style="width: 80px;"
+                 [(ngModel)]="action.workTime.saturday.end"
+                 (input)="isValidWorkTime.saturday.end = action.workTime.saturday.end !== ''"
+                 [ngClass]="isValidWorkTime.saturday.end == null ? '' : isValidWorkTime.saturday.end ? 'is-valid' : 'is-invalid'"></span>
+        <p class="mb-0 mt-3">воскресенье</p>
+        <span>С
+          <input type="time" class="d-inline-block form-control p-0" style="width: 80px;"
+                 [(ngModel)]="action.workTime.sunday.start"
+                 (input)="isValidWorkTime.sunday.start = action.workTime.sunday.start !== ''"
+                 [ngClass]="isValidWorkTime.sunday.start == null ? '' : isValidWorkTime.sunday.start ? 'is-valid' : 'is-invalid'"> До
+          <input type="time" class="d-inline-block form-control p-0" style="width: 80px;"
+                 [(ngModel)]="action.workTime.sunday.end"
+                 (input)="isValidWorkTime.sunday.end = action.workTime.sunday.end !== ''"
+                 [ngClass]="isValidWorkTime.sunday.end == null ? '' : isValidWorkTime.sunday.end ? 'is-valid' : 'is-invalid'"></span>
+      </div>
+
+      <div class="form-group mt-5">
+        <label for="action-image">Загрузите изображение акции</label>
+        <input type="file" class="form-control p-0" id="action-image" (change)="changeActionImage($event);"
+               accept=".jpg,.jpeg,.png"
+               [ngClass]="isValidImage == null ? '' : isValidImage ? 'is-valid' : 'is-invalid'">
+      </div>
+
+      <img *ngIf="!!actionImageUrl" [src]="actionImageUrl" class="w-100 border rounded" alt="Action Image">
+    </div>
+    <div class="col-4">
+      <div class="border rounded p-4">
+        <p class="lead m-0">Социальные сети</p>
+        <div class="form-group">
+          <label for="action-instagram">Instagram</label>
+          <input type="text" class="form-control" id="action-instagram" [(ngModel)]="action.socialNetworks.instagram">
+        </div>
+        <div class="form-group">
+          <label for="action-twitter">Twitter</label>
+          <input type="text" class="form-control" id="action-twitter" [(ngModel)]="action.socialNetworks.twitter">
+        </div>
+        <div class="form-group">
+          <label for="action-facebook">Facebook</label>
+          <input type="text" class="form-control" id="action-facebook" [(ngModel)]="action.socialNetworks.facebook">
+        </div>
+        <div class="form-group">
+          <label for="action-vk">VK</label>
+          <input type="text" class="form-control" id="action-vk" [(ngModel)]="action.socialNetworks.vk">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="action-information" class="w-100">Информация<span style="float: right;">450 символов</span></label>
+    <textarea class="form-control" id="action-information" rows="6" [(ngModel)]="action.information" (change)="checkerInformation()"
+              [ngClass]="isValidInformation == null ? '' : isValidInformation ? 'is-valid' : 'is-invalid'"></textarea>
+  </div>
+
+  <div class="row">
+    <div class="col" style="max-width: 240px;">
+      <label class="my-1 mr-2" for="action-category">Категория</label>
+      <select class="custom-select" id="action-category" [(ngModel)]="action.category" (change)="checkerCategory()"
+              [ngClass]="isValidCategory == null ? '' : isValidCategory ? 'is-valid' : 'is-invalid'">
+        <option *ngFor="let category of categories" [value]="category.id">{{category.title}}</option>
+      </select>
+    </div>
+    <div class="col" style="max-width: 240px;">
+      <label class="my-1 mr-2" for="action-sub-category">Подкатегория</label>
+      <select class="custom-select" id="action-sub-category" [(ngModel)]="action.subCategory" (change)="checkerSubCategory()"
+              [ngClass]="isValidSubCategory == null ? '' : isValidSubCategory ? 'is-valid' : 'is-invalid'">
+        <ng-container *ngFor="let subCategory of subCategories">
+          <option [value]="subCategory.id" *ngIf="action.category == subCategory.categoryId">{{subCategory.title}}</option>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+  <div class="form-group" style="max-width: 240px;">
+    <label for="action-before">Акция действительна до</label>
+    <input type="date" class="form-control" id="action-before" [ngModel]="actionBefore | date:'yyyy-MM-dd'"
+           (ngModelChange)="actionBefore = $event" (input)="checkerActionBefore()"
+           [ngClass]="isValidActionBefore == null ? '' : isValidActionBefore ? 'is-valid' : 'is-invalid'">
+  </div>
+
+  <button class="btn btn-primary" (click)="saveAction()">{{partner != null ? 'Далее' : 'Сохранить'}}</button>
+</div>

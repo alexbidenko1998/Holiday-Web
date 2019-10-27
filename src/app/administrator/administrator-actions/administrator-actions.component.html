@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <h1 class="text-center">Изменения ожидают модерации</h1>
+
+  <a routerLink="../redact-action" (click)="createAction()">Создать новую +</a>
+
+  <div class="row">
+    <div class="col-6">
+      Партнер
+    </div>
+    <div class="col-6">
+      Акция
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let moderatingAction of moderatingActions; let i = index" (click)="checkUpdateAction(i)">
+    <div class="col-6 border">
+      {{moderatingAction.partner.lastName}} {{moderatingAction.partner.firstName}} {{moderatingAction.partner.middleName}}
+    </div>
+    <div class="col-6 border text-center">
+      {{moderatingAction.action.title}}
+    </div>
+  </div>
+
+  <p class="text-center" *ngIf="!moderatingActions || moderatingActions.length == 0">Нет изменений для модерации</p>
+</div>

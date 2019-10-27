@@ -1,0 +1,18 @@
+<div class="container-fluid px-5">
+  <div class="row" *ngIf="isFirstStep">
+    <h1 class="text-center w-100">Продвижение в "Интересные предложения</h1>
+    <p class="w-100">Добавить Вашу акцию в "Интересные предложения"?</p>
+    <div class="col-auto">
+      <button class="btn btn-success mx-5" (click)="toBuy()">Оплатить</button>
+      <button class="btn btn-outline-secondary mx-5" (click)="isFirstStep = !isFirstStep">Нет</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="!isFirstStep">
+    <h1 class="text-center w-100">Продвижение в Категории</h1>
+    <p class="w-100">Поднять Вашу акцию в топ категории и подкатегории?</p>
+    <div class="col-auto">
+      <button class="btn btn-success mx-5" (click)="toBuy()">Оплатить</button>
+      <button class="btn btn-outline-secondary mx-5" (click)="finish()">Нет</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <h2 class="text-center">Сообщения от партнеров</h2>
+
+  <a class="row" *ngFor="let partnerMessage of partnerMessages" [href]="'mailto:' + partnerMessage.partner.email">
+    <div class="col-6 text-center border">
+      {{partnerMessage.partner.lastName}} {{partnerMessage.partner.firstName}} {{partnerMessage.partner.middleName}}
+    </div>
+    <div class="col-6 border">
+      {{partnerMessage.message}}
+    </div>
+  </a>
+
+  <p class="text-center" *ngIf="!partnerMessages || partnerMessages.length == 0">Нет сообщений от партнеров</p>
+
+  <hr />
+
+  <h2 class="text-center">Сообщения от пользователей</h2>
+
+  <a class="row" *ngFor="let userMessage of userMessages" [href]="'mailto:' + userMessage.user.email" target="_blank">
+    <div class="col-6 text-center border">
+      {{userMessage.user.name}}
+    </div>
+    <div class="col-6 border">
+      {{userMessage.message.message}}
+    </div>
+  </a>
+
+  <p class="text-center" *ngIf="!userMessages || userMessages.length == 0">Нет сообщений от пользователей</p>
+</div>
+

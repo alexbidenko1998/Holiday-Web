@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <h1 class="text-center">Каталог</h1>
+
+  <h4 class="text-center">Партнеры</h4>
+  <div *ngFor="let partner of partners" class="row" [routerLink]="['/partner', partner.id]">
+    <div class="col-6 border text-center">
+      {{partner.lastName}} {{partner.firstName}} {{partner.middleName}}
+    </div>
+    <div class="col-6 border text-center">
+      {{partner.email}}
+    </div>
+  </div>
+
+  <h4 class="text-center">Пользователи</h4>
+  <div *ngFor="let user of users" class="row" [routerLink]="['/user', user.id]">
+    <div class="col-4 border text-center">
+      {{user.name}}
+    </div>
+    <div class="col-4 border text-center">
+      {{user.login}}
+    </div>
+    <div class="col-4 border text-center">
+      {{user.phone}}
+    </div>
+  </div>
+</div>

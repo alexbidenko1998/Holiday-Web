@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3 border-right p-0" style="height: 100vh; overflow-y: auto;">
+      <div class="px-4">
+        <h1 class="h4">Администратор</h1>
+        <h2>Александр Биденко</h2>
+
+        <button class="btn btn-primary mb-5" (click)="logout()">Выйти</button>
+      </div>
+
+      <a routerLink="all-actions" routerLinkActive="active"
+         class="btn btn-outline-secondary rounded-0 padding-5 w-100">Все акции</a>
+      <a routerLink="actions" routerLinkActive="active"
+         class="btn btn-outline-secondary rounded-0 padding-5 w-100">Изменения</a>
+      <a routerLink="messages" routerLinkActive="active"
+         class="btn btn-outline-secondary rounded-0 padding-5 w-100">Сообщения</a>
+      <a routerLink="categories" routerLinkActive="active"
+         class="btn btn-outline-secondary rounded-0 padding-5 w-100">Управление каталогом</a>
+      <a routerLink="users" routerLinkActive="active"
+         class="btn btn-outline-secondary rounded-0 padding-5 w-100">Управление пользователями</a>
+
+      <button class="btn btn-outline-primary mt-4 w-100" data-toggle="modal" data-target="#change-data-modal">Изменить профиль</button>
+    </div>
+    <div class="col-9" style="height: 100vh; overflow-y: auto;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="change-data-modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Смена пароля</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="change-new-login">Новый логин</label>
+          <input type="password" class="form-control" id="change-new-login"
+                 [(ngModel)]="newLogin.value" (input)="newLogin.checker()"
+                 [ngClass]="newPassword.isValid == null ? '' : newLogin.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: newLogin.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="newLogin.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{newLogin.isValid ? 'Корректный логин' : 'Логин должен быть от 8 до 64 символов без пробелов'}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="change-old-password">Старый пароль</label>
+          <input type="password" class="form-control" id="change-old-password" [(ngModel)]="oldPassword">
+        </div>
+        <div class="form-group">
+          <label for="change-new-password">Новый пароль</label>
+          <input type="password" class="form-control" id="change-new-password"
+                 [(ngModel)]="newPassword.value" (input)="newPassword.checker()"
+                 [ngClass]="newPassword.isValid == null ? '' : newPassword.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: newPassword.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="newPassword.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{newPassword.isValid ? 'Корректный пароль' : 'Пароль должен быть от 8 до 64 символов без пробелов'}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="change-new-repeat-password">Повторите новый пароль</label>
+          <input type="password" class="form-control" id="change-new-repeat-password"
+                 [(ngModel)]="repeatNewPassword.value" (input)="repeatNewPassword.checker()"
+                 [ngClass]="repeatNewPassword.isValid == null ? '' : repeatNewPassword.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: repeatNewPassword.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="repeatNewPassword.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{repeatNewPassword.isValid ? 'Пароли совпадают' : 'Пароли не совпадают'}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary" (click)="changePassword()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

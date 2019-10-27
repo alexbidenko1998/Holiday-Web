@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <h1 class="text-center">
+    Партнер
+    <button class="btn btn-primary mt-2" style="float: right;" (click)="logout()">Выйти</button>
+  </h1>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <label for="change-last-name">Фамилия</label>
+        <input type="text" class="form-control" id="change-last-name"
+               [(ngModel)]="lastName.value" (input)="lastName.checker()"
+               [ngClass]="lastName.isValid == null ? '' : lastName.isValid ? 'is-valid' : 'is-invalid'">
+        <div class="d-block" [ngStyle]="{visibility: lastName.isValid == null ? 'hidden' : 'visible'}"
+             [ngClass]="lastName.isValid ? 'valid-feedback' : 'invalid-feedback'">
+          {{lastName.isValid ? 'Корректная фамилия' : 'Фамилия не может быть пустой'}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="change-first-name">Имя</label>
+        <input type="text" class="form-control" id="change-first-name"
+               [(ngModel)]="firstName.value" (input)="firstName.checker()"
+               [ngClass]="firstName.isValid == null ? '' : firstName.isValid ? 'is-valid' : 'is-invalid'">
+        <div class="d-block" [ngStyle]="{visibility: firstName.isValid == null ? 'hidden' : 'visible'}"
+             [ngClass]="firstName.isValid ? 'valid-feedback' : 'invalid-feedback'">
+          {{firstName.isValid ? 'Корректное имя' : 'Имя не может быть пустым'}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="change-middle-name">Отчество</label>
+        <input type="text" class="form-control" id="change-middle-name"
+               [(ngModel)]="middleName.value" (input)="middleName.checker()"
+               [ngClass]="middleName.isValid == null ? '' : middleName.isValid ? 'is-valid' : 'is-invalid'">
+        <div class="d-block" [ngStyle]="{visibility: middleName.isValid == null ? 'hidden' : 'visible'}"
+             [ngClass]="middleName.isValid ? 'valid-feedback' : 'invalid-feedback'">
+          {{middleName.isValid ? 'Корректное отчество' : 'Отчество не может быть пустым'}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="change-email-name">email</label>
+        <input type="email" class="form-control" id="change-email-name"
+               [(ngModel)]="email.value" (input)="email.checker()"
+               [ngClass]="email.isValid == null ? '' : email.isValid ? 'is-valid' : 'is-invalid'">
+        <div class="d-block" [ngStyle]="{visibility: email.isValid == null ? 'hidden' : 'visible'}"
+             [ngClass]="email.isValid ? 'valid-feedback' : 'invalid-feedback'">
+          {{email.isValid ? 'Корректный email' : 'Некорректный формат email'}}
+        </div>
+      </div>
+
+      <button class="btn btn-primary mb-4 mr-2" (click)="updatePartner()">Сохранить</button>
+
+      <button class="btn btn-outline-primary mb-4 mr-2" data-toggle="modal" data-target="#change-password-modal">Изменить пароль</button>
+    </div>
+
+    <div class="col-8">
+      <h2 class="text-center h5">
+        Мои подтвержденные акции
+        <a routerLink="/partner/action" style="float: right;" (click)="toNewAction()">
+          Создать новую
+          <i class="material-icons" style="float: right;">add</i>
+        </a>
+      </h2>
+      <div class="row px-3" *ngFor="let action of actions" (click)="moderateAction(action)">
+        <p class="border p-1 col" [class.border-danger]="action.actionBefore < currentDate">{{action.title}}</p>
+        <i class="material-icons p-2" style="cursor: pointer;" (click)="deleteAction(action.id)">close</i>
+      </div>
+      <p class="text-center" *ngIf="!actions || actions.length == 0">
+        Нет подтвержденных акций
+      </p>
+
+      <h2 class="text-center h5">
+        Мои акции на модерации
+      </h2>
+      <div class="row px-3" *ngFor="let moderatedAction of moderatedActions" (click)="moderateAction(moderatedAction)">
+        <p class="border p-1 col" [class.border-danger]="moderatedAction.actionBefore < currentDate">{{moderatedAction.title}}</p>
+        <i class="material-icons p-2" style="cursor: pointer;">close</i>
+      </div>
+      <p class="text-center" *ngIf="!moderatedActions || moderatedActions.length == 0">
+        Нет акций на модерации
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="change-password-modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Смена пароля</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="change-old-password">Старый пароль</label>
+          <input type="password" class="form-control" id="change-old-password" [(ngModel)]="oldPassword">
+        </div>
+        <div class="form-group">
+          <label for="change-new-password">Новый пароль</label>
+          <input type="password" class="form-control" id="change-new-password"
+                 [(ngModel)]="newPassword.value" (input)="newPassword.checker()"
+                 [ngClass]="newPassword.isValid == null ? '' : newPassword.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: newPassword.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="newPassword.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{newPassword.isValid ? 'Корректный пароль' : 'Пароль должен быть от 8 до 64 символов без пробелов'}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="change-new-repeat-password">Повторите новый пароль</label>
+          <input type="password" class="form-control" id="change-new-repeat-password"
+                 [(ngModel)]="repeatNewPassword.value" (input)="repeatNewPassword.checker()"
+                 [ngClass]="repeatNewPassword.isValid == null ? '' : repeatNewPassword.isValid ? 'is-valid' : 'is-invalid'">
+          <div class="d-block" [ngStyle]="{visibility: repeatNewPassword.isValid == null ? 'hidden' : 'visible'}"
+               [ngClass]="repeatNewPassword.isValid ? 'valid-feedback' : 'invalid-feedback'">
+            {{repeatNewPassword.isValid ? 'Пароли совпадают' : 'Пароли не совпадают'}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary" (click)="changePassword()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
